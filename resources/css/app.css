@@ -1,0 +1,36 @@
+/* ================================
+   RESPONSIVE UI STYLING
+================================ */
+
+/* Responsive text sizes & button padding for small screens */
+@media (max-width: 576px) {
+    .responsive-text {
+        font-size: 0.9rem;
+    }
+    .btn-lg {
+        padding: 0.5rem 1rem;
+    }
+    .display-6 {
+        font-size: 1.5rem;
+    }
+    .card-header h5 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Medium screens (≤ 768px) - tablet and small desktops */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+    .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Table responsiveness */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
