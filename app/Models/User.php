@@ -22,6 +22,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'id_card_number',
+        'role', // pastikan 'role' ada di database (users table)
     ];
 
     /**
@@ -35,7 +36,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -53,5 +54,13 @@ class User extends Authenticatable
     public function loans(): HasMany
     {
         return $this->hasMany(Loan::class);
+    }
+
+    /**
+     * Apakah user adalah admin
+     */
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->role === 'admin';
     }
 }

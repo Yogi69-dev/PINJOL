@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-
 
 class AuthController extends Controller
 {
@@ -26,12 +24,19 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+
+            // Cek peran (role) pengguna
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                return redirect()->intended('/admin/dashboard');
+            } else {
+                return redirect()->intended('/dashboard');
+            }
         }
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',
-        ]);
+        ])->withInput();
     }
 
     public function showRegistrationForm()
@@ -55,7 +60,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
             'id_card_number' => $request->id_card_number,
-            'is_admin' => false,
+            'role' => 'user', // default role user
         ]);
 
         Auth::login($user);
